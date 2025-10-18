@@ -23,7 +23,18 @@
   font-display: swap;
 }
 
-/* Language font classes */
+/* apply font force to text content elements, avoid affecting icons */
+body, p, span, div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
+h1, h2, h3, h4, h5, h6, 
+a:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
+li:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
+td:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
+th:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
+article, section, main, footer, header, nav {
+  font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
+}
+
+/* apply font force to language-specific elements */
 .font-zh_CN, .font-ko {
   font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
 }
@@ -34,4 +45,55 @@
 
 .font-ja, .font-en, .font-ms {
   font-family: 'KleeOne-Regular', sans-serif !important;
+}
+
+/* ensure icon fonts remain unchanged */
+[class*="fa-"] {
+  font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+}
+.fa, .fas, .far, .fab, .fal, .fa-classic, .fa-regular, .fa-solid, .fa-globe {
+  font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+}
+/* ensure other common icon libraries remain unchanged */
+[class*="material-"] {
+  font-family: 'Material Icons', inherit !important;
+}
+.mdi, [class*="mdi-"] {
+  font-family: 'Material Design Icons', inherit !important;
+}
+.ion-, [class*="ion-"] {
+  font-family: 'Ionicons', inherit !important;
+}
+.feather, [class*="feather-"] {
+  font-family: 'Feather', inherit !important;
+}
+.bi, [class*="bi-"] {
+  font-family: 'Bootstrap Icons', inherit !important;
+}
+.zmdi, [class*="zmdi-"] {
+  font-family: 'Material-Design-Iconic-Font', inherit !important;
+}
+.mat-, [class*="mat-icon"] {
+    font-family: 'Material Icons', inherit !important;
+  }
+  .nc_iconfont{
+    font-family: "nc-iconfont" !important;
+  }
+  .iconfont {
+    font-family: "iconfont" !important;
+  }
+  /* protect fucking unqiue Google Symbols */
+  .google-symbols,
+[class*="google-symbols"],
+.mat-icon.google-symbols,
+.mat-icon[class*="google-symbols"],
+/* Also protect elements with gds-icon prefix which might be Google Design System icons */
+[class*="gds-icon-"] {
+    font-family: 'Google Symbols', inherit !important;
+}
+[class*="icon-"]:not([class*="fa-"]) {
+  font-family: inherit !important;
+}
+.glyph-icon {
+  font-family: inherit !important;
 }
