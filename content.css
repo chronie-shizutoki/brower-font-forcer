@@ -1,89 +1,319 @@
-/* Define all fonts */
-@font-face {
-  font-family: 'LXGWWenKaiGB-Regular';
-  src: url(chrome-extension://__MSG_@@extension_id__/LXGWWenKaiGB-Regular.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+/* This file is kept for legacy support - most styling is now handled by content.js */
+
+/* Default font for Simplified Chinese */
+.font-zh_CN, .font-ko , 
+/* fix for website geshin-cloud */
+.lang-zh-cn.font-full, .lang-zh-cn.font-full *, .lang-zh-cn.font-full :after, .lang-zh-cn.font-full :before, .useCloudFont {
+    font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
 }
 
-@font-face {
-  font-family: 'LXGWWenKaiTC-Regular';
-  src: url(chrome-extension://__MSG_@@extension_id__/LXGWWenKaiTC-Regular.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'KleeOne-Regular';
-  src: url(chrome-extension://__MSG_@@extension_id__/KleeOne-Regular.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* apply font force to text content elements, avoid affecting icons */
-body, p, span, div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-h1, h2, h3, h4, h5, h6, 
-a:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-li:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-td:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-th:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-article, section, main, footer, header, nav {
-  font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
-}
-
-/* apply font force to language-specific elements */
-.font-zh_CN, .font-ko {
-  font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
-}
-
+/* Font for Traditional Chinese */
 .font-zh_TW {
-  font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
+    font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
 }
 
+/* Font for Japanese, English, and Malay */
 .font-ja, .font-en, .font-ms {
-  font-family: 'KleeOne-Regular', sans-serif !important;
+    font-family: 'KleeOne-Regular', sans-serif !important;
 }
 
-/* ensure icon fonts remain unchanged */
-[class*="fa-"] {
-  font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+/* Apply font force to common text elements when extension is enabled */
+html.font-zh_CN body,
+html.font-zh_CN html,
+html.font-zh_CN p,
+html.font-zh_CN span,
+html.font-zh_CN h1,
+html.font-zh_CN h2,
+html.font-zh_CN h3,
+html.font-zh_CN h4,
+html.font-zh_CN h5,
+html.font-zh_CN h6,
+html.font-zh_CN a,
+html.font-zh_CN li,
+html.font-zh_CN ul,
+html.font-zh_CN ol,
+html.font-zh_CN dl,
+html.font-zh_CN dt,
+html.font-zh_CN dd,
+html.font-zh_CN table,
+html.font-zh_CN tbody,
+html.font-zh_CN thead,
+html.font-zh_CN tfoot,
+html.font-zh_CN tr,
+html.font-zh_CN td,
+html.font-zh_CN th,
+html.font-zh_CN input,
+html.font-zh_CN textarea,
+html.font-zh_CN select,
+html.font-zh_CN option,
+html.font-zh_CN label,
+html.font-zh_CN article,
+html.font-zh_CN section,
+html.font-zh_CN main,
+html.font-zh_CN footer,
+html.font-zh_CN header,
+html.font-zh_CN nav,
+html.font-zh_CN aside,
+html.font-zh_CN figure,
+html.font-zh_CN figcaption,
+html.font-zh_CN blockquote,
+html.font-zh_CN pre,
+html.font-zh_CN code,
+html.font-zh_CN em,
+html.font-zh_CN strong,
+html.font-zh_CN u,
+html.font-zh_CN i,
+html.font-zh_CN b,
+html.font-zh_CN sup,
+html.font-zh_CN sub,
+html.font-zh_CN mark,
+html.font-zh_CN del,
+html.font-zh_CN ins,
+html.font-zh_CN div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
+    font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
 }
-.fa, .fas, .far, .fab, .fal, .fa-classic, .fa-regular, .fa-solid, .fa-globe {
-  font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+
+html.font-zh_TW body,
+html.font-zh_TW html,
+html.font-zh_TW p,
+html.font-zh_TW span,
+html.font-zh_TW h1,
+html.font-zh_TW h2,
+html.font-zh_TW h3,
+html.font-zh_TW h4,
+html.font-zh_TW h5,
+html.font-zh_TW h6,
+html.font-zh_TW a,
+html.font-zh_TW li,
+html.font-zh_TW ul,
+html.font-zh_TW ol,
+html.font-zh_TW dl,
+html.font-zh_TW dt,
+html.font-zh_TW dd,
+html.font-zh_TW table,
+html.font-zh_TW tbody,
+html.font-zh_TW thead,
+html.font-zh_TW tfoot,
+html.font-zh_TW tr,
+html.font-zh_TW td,
+html.font-zh_TW th,
+html.font-zh_TW input,
+html.font-zh_TW textarea,
+html.font-zh_TW select,
+html.font-zh_TW option,
+html.font-zh_TW label,
+html.font-zh_TW article,
+html.font-zh_TW section,
+html.font-zh_TW main,
+html.font-zh_TW footer,
+html.font-zh_TW header,
+html.font-zh_TW nav,
+html.font-zh_TW aside,
+html.font-zh_TW figure,
+html.font-zh_TW figcaption,
+html.font-zh_TW blockquote,
+html.font-zh_TW pre,
+html.font-zh_TW code,
+html.font-zh_TW em,
+html.font-zh_TW strong,
+html.font-zh_TW u,
+html.font-zh_TW i,
+html.font-zh_TW b,
+html.font-zh_TW sup,
+html.font-zh_TW sub,
+html.font-zh_TW mark,
+html.font-zh_TW del,
+html.font-zh_TW ins,
+html.font-zh_TW div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
+    font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
 }
-/* ensure other common icon libraries remain unchanged */
-[class*="material-"] {
-  font-family: 'Material Icons', inherit !important;
+
+html.font-ja body,
+html.font-ja html,
+html.font-ja p,
+html.font-ja span,
+html.font-ja h1,
+html.font-ja h2,
+html.font-ja h3,
+html.font-ja h4,
+html.font-ja h5,
+html.font-ja h6,
+html.font-ja a,
+html.font-ja li,
+html.font-ja ul,
+html.font-ja ol,
+html.font-ja dl,
+html.font-ja dt,
+html.font-ja dd,
+html.font-ja table,
+html.font-ja tbody,
+html.font-ja thead,
+html.font-ja tfoot,
+html.font-ja tr,
+html.font-ja td,
+html.font-ja th,
+html.font-ja input,
+html.font-ja textarea,
+html.font-ja select,
+html.font-ja option,
+html.font-ja label,
+html.font-ja article,
+html.font-ja section,
+html.font-ja main,
+html.font-ja footer,
+html.font-ja header,
+html.font-ja nav,
+html.font-ja aside,
+html.font-ja figure,
+html.font-ja figcaption,
+html.font-ja blockquote,
+html.font-ja pre,
+html.font-ja code,
+html.font-ja em,
+html.font-ja strong,
+html.font-ja u,
+html.font-ja i,
+html.font-ja b,
+html.font-ja sup,
+html.font-ja sub,
+html.font-ja mark,
+html.font-ja del,
+html.font-ja ins,
+html.font-ja div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
+    font-family: 'KleeOne-Regular', sans-serif !important;
 }
-.mdi, [class*="mdi-"] {
-  font-family: 'Material Design Icons', inherit !important;
+
+html.font-en body,
+html.font-en html,
+html.font-en p,
+html.font-en span,
+html.font-en h1,
+html.font-en h2,
+html.font-en h3,
+html.font-en h4,
+html.font-en h5,
+html.font-en h6,
+html.font-en a,
+html.font-en li,
+html.font-en ul,
+html.font-en ol,
+html.font-en dl,
+html.font-en dt,
+html.font-en dd,
+html.font-en table,
+html.font-en tbody,
+html.font-en thead,
+html.font-en tfoot,
+html.font-en tr,
+html.font-en td,
+html.font-en th,
+html.font-en input,
+html.font-en textarea,
+html.font-en select,
+html.font-en option,
+html.font-en label,
+html.font-en article,
+html.font-en section,
+html.font-en main,
+html.font-en footer,
+html.font-en header,
+html.font-en nav,
+html.font-en aside,
+html.font-en figure,
+html.font-en figcaption,
+html.font-en blockquote,
+html.font-en pre,
+html.font-en code,
+html.font-en em,
+html.font-en strong,
+html.font-en u,
+html.font-en i,
+html.font-en b,
+html.font-en sup,
+html.font-en sub,
+html.font-en mark,
+html.font-en del,
+html.font-en ins,
+html.font-en div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
+    font-family: 'KleeOne-Regular', sans-serif !important;
 }
-.ion-, [class*="ion-"] {
-  font-family: 'Ionicons', inherit !important;
+
+html.font-ms body,
+html.font-ms html,
+html.font-ms p,
+html.font-ms span,
+html.font-ms h1,
+html.font-ms h2,
+html.font-ms h3,
+html.font-ms h4,
+html.font-ms h5,
+html.font-ms h6,
+html.font-ms a,
+html.font-ms li,
+html.font-ms ul,
+html.font-ms ol,
+html.font-ms dl,
+html.font-ms dt,
+html.font-ms dd,
+html.font-ms table,
+html.font-ms tbody,
+html.font-ms thead,
+html.font-ms tfoot,
+html.font-ms tr,
+html.font-ms td,
+html.font-ms th,
+html.font-ms input,
+html.font-ms textarea,
+html.font-ms select,
+html.font-ms option,
+html.font-ms label,
+html.font-ms article,
+html.font-ms section,
+html.font-ms main,
+html.font-ms footer,
+html.font-ms header,
+html.font-ms nav,
+html.font-ms aside,
+html.font-ms figure,
+html.font-ms figcaption,
+html.font-ms blockquote,
+html.font-ms pre,
+html.font-ms code,
+html.font-ms em,
+html.font-ms strong,
+html.font-ms u,
+html.font-ms i,
+html.font-ms b,
+html.font-ms sup,
+html.font-ms sub,
+html.font-ms mark,
+html.font-ms del,
+html.font-ms ins,
+html.font-ms div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
+    font-family: 'KleeOne-Regular', sans-serif !important;
 }
-.feather, [class*="feather-"] {
-  font-family: 'Feather', inherit !important;
-}
-.bi, [class*="bi-"] {
-  font-family: 'Bootstrap Icons', inherit !important;
-}
-.zmdi, [class*="zmdi-"] {
-  font-family: 'Material-Design-Iconic-Font', inherit !important;
-}
+
+/* Material Icons */
 .mat-, [class*="mat-icon"] {
     font-family: 'Material Icons', inherit !important;
-  }
-  .nc_iconfont{
-    font-family: "nc-iconfont" !important;
-  }
-  .iconfont {
+}
+
+/* 特别保护iconfont类 */
+.iconfont {
     font-family: "iconfont" !important;
-  }
-  /* protect fucking unqiue Google Symbols */
-  .google-symbols,
+}
+
+/* 确保FontAwesome图标正常显示 */
+[class*="fa-"] {
+    font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+}
+
+.fa, .fas, .far, .fab, .fal, .fa-classic, .fa-regular, .fa-solid, .fa-globe {
+    font-family: 'Font Awesome 7 Free', 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'Font Awesome 4.7.0', FontAwesome, inherit !important;
+}
+
+/* protect fucking unqiue Google Symbols */
+.google-symbols,
 [class*="google-symbols"],
 .mat-icon.google-symbols,
 .mat-icon[class*="google-symbols"],
@@ -91,9 +321,41 @@ article, section, main, footer, header, nav {
 [class*="gds-icon-"] {
     font-family: 'Google Symbols', inherit !important;
 }
+
+/* 其他常见图标库 */
+[class*="material-"] {
+    font-family: 'Material Icons', inherit !important;
+}
+
+.mdi, [class*="mdi-"] {
+    font-family: 'Material Design Icons', inherit !important;
+}
+
+.ion-, [class*="ion-"] {
+    font-family: 'Ionicons', inherit !important;
+}
+
+.feather, [class*="feather-"] {
+    font-family: 'Feather', inherit !important;
+}
+
+.bi, [class*="bi-"] {
+    font-family: 'Bootstrap Icons', inherit !important;
+}
+
+.zmdi, [class*="zmdi-"] {
+    font-family: 'Material-Design-Iconic-Font', inherit !important;
+}
+
+.nc_iconfont {
+    font-family: "nc-iconfont" !important;
+}
+
 [class*="icon-"]:not([class*="fa-"]) {
-  font-family: inherit !important;
+    font-family: inherit !important;
 }
+
 .glyph-icon {
-  font-family: inherit !important;
+    font-family: inherit !important;
 }
+

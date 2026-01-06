@@ -108,27 +108,44 @@
                 style.id = 'force-font-style';
             }
             
+            // Check if browser supports @layer
+            const supportsCssLayers = CSS && CSS.supports && CSS.supports('@layer force-font');
+            
             // Add corresponding font class based on current language
-            style.textContent = `
-            /* apply font force to text content elements, avoid affecting icons */
-                body, p, span, div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-" ]):not([class*="material-" ]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-                h1, h2, h3, h4, h5, h6, 
-                a:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-" ]):not([class*="material-" ]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-                li:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-" ]):not([class*="material-" ]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-                td:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-" ]):not([class*="material-" ]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-                th:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-" ]):not([class*="material-" ]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi),
-                article, section, main, footer, header, nav {
+            const fontRules = `
+                /* Core text elements with high specificity */
+                html body, html html, html p, html span, 
+                /* Headings */
+                html h1, html h2, html h3, html h4, html h5, html h6, 
+                /* Links */
+                html a,
+                /* List elements */
+                html li, html ul, html ol, html dl, html dt, html dd,
+                /* Table elements */
+                html table, html tbody, html thead, html tfoot, html tr, html td, html th,
+                /* Form elements */
+                html input, html textarea, html select, html option, html label, html button,
+                /* Structural elements */
+                html article, html section, html main, html footer, html header, html nav, html aside, html figure, html figcaption,
+                /* Other text elements */
+                html blockquote, html pre, html code, html em, html strong, html u, html i, html b, html sup, html sub, html mark, html del, html ins,
+                /* Additional text elements */
+                html small, html big, html address, html cite, html dfn, html q, html samp, html var, html abbr, html acronym, html kbd, html strike,
+                /* div elements with text content (exclude icon containers) */
+                html div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
                     font-family: '${font}', sans-serif !important;
                 }
                 
-                /* apply font force to language-specific elements */
-                .font-zh_CN, .font-ko {
+                /* apply font force to language-specific elements with high specificity */
+                html.font-zh_CN .font-zh_CN, html.font-ko .font-ko , 
+                /* fix for website geshin-cloud */
+                html.lang-zh-cn.font-full, html.lang-zh-cn.font-full *, html.lang-zh-cn.font-full :after, html.lang-zh-cn.font-full :before, html.useCloudFont {
                     font-family: 'LXGWWenKaiGB-Regular', sans-serif !important;
                 }
-                .font-zh_TW {
+                html.font-zh_TW .font-zh_TW {
                     font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
                 }
-                .font-ja, .font-en, .font-ms {
+                html.font-ja .font-ja, html.font-en .font-en, html.font-ms .font-ms {
                     font-family: 'KleeOne-Regular', sans-serif !important;
                 }
                 
@@ -161,7 +178,7 @@
                 .mat-, [class*="mat-icon"] {
                     font-family: 'Material Icons', inherit !important;
                 }
-                .nc_iconfont{
+                .nc_iconfont {
                     font-family: "nc-iconfont" !important;
                 }
                 .iconfont {
@@ -184,6 +201,26 @@
                 }
             `;
             
+            // Wrap in @layer if supported, otherwise use regular style
+            if (supportsCssLayers) {
+                style.textContent = `
+                /* apply font force to text content elements, avoid affecting icons */
+                @layer force-font {
+                    ${fontRules}
+                }
+                
+                /* Ensure our layer has highest priority */
+                @layer {
+                    /* Empty layer to make it highest priority */
+                }
+                `;
+            } else {
+                style.textContent = `
+                /* apply font force to text content elements, avoid affecting icons */
+                ${fontRules}
+                `;
+            }
+            
             // Add to head
             if (document.head) {
                 document.head.appendChild(style);
@@ -197,7 +234,7 @@
             }
 
             // Add corresponding language font class to html element
-            if (document.documentElement) {
+            if (document.documentElement && isEnabled) {
                 // Remove all language font classes
                 Object.keys(fontMap).forEach(lang => {
                     document.documentElement.classList.remove(`font-${lang}`);
@@ -214,12 +251,20 @@
         if (style) {
             style.remove();
         }
+        
+        // Also remove language font class from html element
+        if (document.documentElement) {
+            Object.keys(fontMap).forEach(lang => {
+                document.documentElement.classList.remove(`font-${lang}`);
+            });
+        }
     }
     
     // Start observing dynamic changes
     function startObserving() {
         if (!isEnabled || observer) return;
         
+        // Monitor body for new elements
         observer = new MutationObserver(function(mutations) {
             if (!isEnabled) return;
             
@@ -256,20 +301,94 @@
             });
         }
         
+        // Throttle function to limit applyFontForce calls
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+        
+        // Throttled version of applyFontForce (max once per 500ms)
+        const throttledApplyFontForce = throttle(function() {
+            applyFontForce();
+        }, 500);
+        
+        // Monitor head for CSS changes (new style or link elements)
+        let headObserver = new MutationObserver(function(mutations) {
+            if (!isEnabled) return;
+            
+            let cssChanged = false;
+            
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === Node.ELEMENT_NODE && 
+                            (node.tagName.toLowerCase() === 'style' || 
+                             (node.tagName.toLowerCase() === 'link' && node.getAttribute('rel') === 'stylesheet'))) {
+                            cssChanged = true;
+                        }
+                    });
+                } else if (mutation.type === 'characterData' || mutation.type === 'attributes') {
+                    // Check if style element content or link element href changed
+                    if (mutation.target.tagName.toLowerCase() === 'style' || 
+                        (mutation.target.tagName.toLowerCase() === 'link' && 
+                         mutation.target.getAttribute('rel') === 'stylesheet' && 
+                         mutation.attributeName === 'href')) {
+                        cssChanged = true;
+                    }
+                }
+            });
+            
+            if (cssChanged) {
+                // Reapply font force after a short delay to ensure new CSS is loaded
+                setTimeout(function() {
+                    throttledApplyFontForce();
+                }, 100);
+            }
+        });
+        
+        if (document.head) {
+            headObserver.observe(document.head, {
+                childList: true,
+                subtree: true,
+                characterData: true,
+                attributes: true,
+                attributeFilter: ['href', 'rel']
+            });
+        } else {
+            document.addEventListener('DOMContentLoaded', function() {
+                if (isEnabled && document.head) {
+                    headObserver.observe(document.head, {
+                        childList: true,
+                        subtree: true,
+                        characterData: true,
+                        attributes: true,
+                        attributeFilter: ['href', 'rel']
+                    });
+                }
+            });
+        }
+        
         // Regularly check and reapply fonts (to prevent being overwritten by other scripts)
         if (!checkInterval) {
             checkInterval = setInterval(function() {
                 if (isEnabled) {
-                    // Ensure html element always has current language font class
-                    if (document.documentElement) {
-                        Object.keys(fontMap).forEach(lang => {
-                            document.documentElement.classList.remove(`font-${lang}`);
-                        });
-                        document.documentElement.classList.add(`font-${currentLanguage}`);
-                    }
+                    // Reapply the entire font force to ensure all elements are covered
+                    applyFontForce();
                 }
-            }, 1000);
+            }, 3000); // Reduced frequency further to minimize performance impact
         }
+        
+        // Store observers for cleanup
+        window.__forceFontObservers = window.__forceFontObservers || [];
+        window.__forceFontObservers.push(observer, headObserver);
     }
     
     // Stop observing
@@ -278,6 +397,15 @@
             observer.disconnect();
             observer = null;
         }
+        
+        // Clean up all observers stored in the global array
+        if (window.__forceFontObservers) {
+            window.__forceFontObservers.forEach(function(obs) {
+                obs.disconnect();
+            });
+            window.__forceFontObservers = [];
+        }
+        
         if (checkInterval) {
             clearInterval(checkInterval);
             checkInterval = null;
