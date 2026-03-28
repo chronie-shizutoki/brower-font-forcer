@@ -12,8 +12,8 @@
     font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
 }
 
-/* Font for Japanese, English, and Malay */
-.font-ja, .font-en, .font-ms {
+/* Font for Japanese and English */
+.font-ja, .font-en {
     font-family: 'KleeOne-Regular', sans-serif !important;
 }
 
@@ -235,61 +235,6 @@ html.font-en mark,
 html.font-en del,
 html.font-en ins,
 html.font-en div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
-    font-family: 'KleeOne-Regular', sans-serif !important;
-}
-
-html.font-ms body,
-html.font-ms html,
-html.font-ms p,
-html.font-ms span,
-html.font-ms h1,
-html.font-ms h2,
-html.font-ms h3,
-html.font-ms h4,
-html.font-ms h5,
-html.font-ms h6,
-html.font-ms a,
-html.font-ms li,
-html.font-ms ul,
-html.font-ms ol,
-html.font-ms dl,
-html.font-ms dt,
-html.font-ms dd,
-html.font-ms table,
-html.font-ms tbody,
-html.font-ms thead,
-html.font-ms tfoot,
-html.font-ms tr,
-html.font-ms td,
-html.font-ms th,
-html.font-ms input,
-html.font-ms textarea,
-html.font-ms select,
-html.font-ms option,
-html.font-ms label,
-html.font-ms article,
-html.font-ms section,
-html.font-ms main,
-html.font-ms footer,
-html.font-ms header,
-html.font-ms nav,
-html.font-ms aside,
-html.font-ms figure,
-html.font-ms figcaption,
-html.font-ms blockquote,
-html.font-ms pre,
-html.font-ms code,
-html.font-ms em,
-html.font-ms strong,
-html.font-ms u,
-html.font-ms i,
-html.font-ms b,
-html.font-ms sup,
-html.font-ms sub,
-html.font-ms mark,
-html.font-ms del,
-html.font-ms ins,
-html.font-ms div:not([class*="fa-"]):not(.fa):not(.fas):not(.far):not(.fab):not([class*="icon-"]):not([class*="btn-"]):not([class*="material-"]):not(.mat-):not(.glyph-icon):not(.mdi):not(.ion-):not(.icon):not(.feather):not(.bi):not(.zmdi):not(.google-symbols):not(.gds-icon-):not(.nc_iconfont):not(.iconfont) {
     font-family: 'KleeOne-Regular', sans-serif !important;
 }
 

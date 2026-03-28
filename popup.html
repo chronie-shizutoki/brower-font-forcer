@@ -76,44 +76,13 @@
         }
 
         body {
-            width: 360px;
-            min-height: 400px;
+            width: 280px;
             margin: 0;
             padding: 0;
             font-family: KleeOne-Regular, LXGWWenKaiTC-Regular, LXGWWenKaiGB-Regular, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             transition: all 0.3s ease;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--btn-primary), var(--text-accent));
-            padding: 24px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
-            font-size: 32px;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         .title {
@@ -153,10 +122,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .language-info {
             flex: 1;
+            min-width: 0;
+        }
+
+        .custom-select-wrapper {
+            flex-shrink: 0;
         }
 
         .language-label {
@@ -182,7 +158,7 @@
             cursor: pointer;
             outline: none;
             transition: all 0.3s ease;
-            min-width: 120px;
+            max-width: 100px;
         }
 
         .language-select:hover {
@@ -241,7 +217,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 0;
+            padding: 12px 0 0 0;
             border-top: 1px solid var(--border-color);
         }
 
@@ -264,18 +240,44 @@
 
         .toggle-switch {
             position: relative;
-            width: 48px;
+            width: 52px;
             height: 28px;
             background: var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             border: none;
             outline: none;
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        .toggle-switch::before {
+            content: '✕';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            opacity: 1;
+            color: #475569;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+            transition: color 0.2s ease, left 0.25s ease, right 0.25s ease;
+            z-index: 1;
         }
 
         .toggle-switch.active {
             background: var(--btn-primary);
+        }
+
+        .toggle-switch.active::before {
+            content: '✔';
+            left: auto;
+            right: 10px;
+            opacity: 1;
+            color: #000000;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+            z-index: 1;
         }
 
         .toggle-switch::after {
@@ -286,81 +288,108 @@
             width: 24px;
             height: 24px;
             background: white;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            border-radius: 50%;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
         }
 
         .toggle-switch.active::after {
-            transform: translateX(20px);
+            transform: translateX(24px);
         }
 
-        .status-indicator {
+        .custom-select-wrapper {
+            position: relative;
+            width: 90px;
+            text-align: left;
+            z-index: 0;
+        }
+
+        .custom-select-btn {
+            width: 100%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
+            justify-content: space-between;
             background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--success-color);
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.inactive {
-            background: var(--text-secondary);
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .status-text {
+            padding: 8px 10px;
+            cursor: pointer;
+            color: var(--text-primary);
             font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 500;
+            outline: none;
+            transition: all 0.2s ease;
+            min-height: 30px;
         }
 
-        .footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            text-align: center;
+        .custom-select-btn span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .footer-text {
+        .custom-select-btn:hover,
+        .custom-select-btn:focus {
+            border-color: var(--btn-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+        }
+
+        .custom-arrow {
             font-size: 11px;
-            color: var(--text-secondary);
-            margin: 0;
-            line-height: 1.4;
+            margin-left: 6px;
+            line-height: 1;
+            transition: transform 0.2s ease;
         }
 
-        .version {
-            color: var(--text-accent);
-            font-weight: 500;
+        .custom-select-btn[aria-expanded="true"] .custom-arrow {
+            transform: rotate(180deg);
         }
 
-        /* Responsive design */ 
-        @media (max-width: 380px) {
-            body {
-                width: 320px;
-            }
-            
-            .content {
-                padding: 20px 16px;
-            }
-            
-            .header {
-                padding: 20px 16px;
-            }
+        .custom-options {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 0;
+            width: 100%;
+            max-height: 150px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(6px);
+            transition: all 0.25s ease;
+        }
+
+        .custom-options.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 9px 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-color);
+            background: transparent;
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover,
+        .custom-option:focus {
+            background: rgba(59, 130, 246, 0.12);
+            outline: none;
+        }
+
+        .custom-option.active {
+            background: rgba(59, 130, 246, 0.18);
+            font-weight: 600;
         }
 
         /* Accessibility support */
@@ -380,17 +409,33 @@
                 --shadow-medium: 0 0 0 2px #000000;
             }
         }
+
+        /* Custom scrollbar for dropdown menu */
+        .custom-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-options::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        .custom-options::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .custom-options::-webkit-scrollbar-thumb:hover {
+            background: var(--btn-primary);
+        }
+
+        .custom-options::-webkit-scrollbar-thumb:active {
+            background: var(--btn-primary-hover);
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">🎨</div>
-            <h1 class="title" data-i18n="headerTitle">Font Forcer</h1>
-            <p class="subtitle" data-i18n="headerSubtitle">Font Force Extension</p>
-        </div>
-    </div>
-
     <div class="content">
         <div class="status-card">
             <div class="font-info">
@@ -409,11 +454,6 @@
                 <button id="toggleBtn" class="toggle-switch active">
                 </button>
             </div>
-
-            <div class="status-indicator">
-                <div id="statusDot" class="status-dot"></div>
-                <div id="statusText" class="status-text" data-i18n="statusEnabled">Force Font Enabled</div>
-            </div>
         </div>
 
         <div class="language-card">
@@ -422,23 +462,31 @@
                     <div class="language-label" data-i18n="languageSettings">Language Settings</div>
                     <div class="language-desc" data-i18n="selectLanguage">Select language</div>
                 </div>
-                <select id="languageSelect" class="language-select">
-                    <option value="zh_CN">简体中文</option>
-                    <option value="zh_TW">繁體中文</option>
-                    <option value="en">English</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="ms">Bahasa Melayu</option>
-                </select>
+
+                <div class="custom-select-wrapper" id="languageSelectWrapper">
+                    <button id="languageSelectButton" class="custom-select-btn" aria-haspopup="listbox" aria-expanded="false" type="button">
+                        <span id="languageSelectLabel">English</span>
+                        <span class="custom-arrow">▾</span>
+                    </button>
+
+                    <div id="languageOptions" class="custom-options" role="listbox" aria-label="Language options" aria-hidden="true">
+                        <div class="custom-option" data-value="zh_CN" role="option" tabindex="0">简体中文</div>
+                        <div class="custom-option" data-value="zh_TW" role="option" tabindex="0">繁體中文</div>
+                        <div class="custom-option" data-value="en" role="option" tabindex="0">English</div>
+                        <div class="custom-option" data-value="ja" role="option" tabindex="0">日本語</div>
+                        <div class="custom-option" data-value="ko" role="option" tabindex="0">한국어</div>
+                    </div>
+
+                    <select id="languageSelect" class="language-select" aria-hidden="true" tabindex="-1" style="display:none;">
+                        <option value="zh_CN">简体中文</option>
+                        <option value="zh_TW">繁體中文</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="footer">
-        <p class="footer-text">
-            <span data-i18n="version">Version</span> <span class="version">1.0.2</span> • <span data-i18n="darkModeSupport">Supports dark mode</span><br>
-            <span data-i18n="browserCompatibility">Compatible with all Chromium-based browsers</span>
-        </p>
     </div>
     
     <script src="popup.js"></script>

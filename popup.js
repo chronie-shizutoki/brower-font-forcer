@@ -1,5 +1,6 @@
 // Global variables
 let toggleBtn, statusDot, statusText, languageSelect;
+let languageSelectButton, languageSelectLabel, languageOptionsContainer, languageOptions;
 
 function updateUI(isEnabled) { 
     // Update toggle switch status
@@ -27,7 +28,43 @@ function updateUI(isEnabled) {
     
     // Update status text 
     updateStatusText(); 
-} 
+}
+
+function toggleLanguageDropdown() {
+    const expanded = languageSelectButton.getAttribute('aria-expanded') === 'true';
+    languageSelectButton.setAttribute('aria-expanded', String(!expanded));
+    languageOptionsContainer.setAttribute('aria-hidden', String(expanded));
+    languageOptionsContainer.classList.toggle('open', !expanded);
+}
+
+function closeLanguageDropdown() {
+    if (!languageSelectButton) return;
+    languageSelectButton.setAttribute('aria-expanded', 'false');
+    languageOptionsContainer.setAttribute('aria-hidden', 'true');
+    languageOptionsContainer.classList.remove('open');
+}
+function setLanguageOption(value) {
+    if (!languageSelect) return;
+    languageSelect.value = value;
+    const option = languageOptions.find(item => item.dataset.value === value);
+    if (option) {
+        languageOptions.forEach(item => item.classList.remove('active'));
+        option.classList.add('active');
+        languageSelectLabel.textContent = option.textContent;
+    }
+    closeLanguageDropdown();
+    changeLanguage();
+}
+
+function syncLanguageUI(language) {
+    if (!languageSelect || !languageSelectLabel) return;
+    const option = languageOptions.find(item => item.dataset.value === language);
+    if (option) {
+        option.classList.add('active');
+        languageSelectLabel.textContent = option.textContent;
+    }
+    languageSelect.value = language;
+}
 
 // Add smooth animation effect 
 function addRippleEffect(element, event) { 
@@ -79,6 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
     statusDot = document.getElementById('statusDot'); 
     statusText = document.getElementById('statusText'); 
     languageSelect = document.getElementById('languageSelect'); 
+    languageSelectButton = document.getElementById('languageSelectButton');
+    languageSelectLabel = document.getElementById('languageSelectLabel');
+    languageOptionsContainer = document.getElementById('languageOptions');
+    languageOptions = Array.from(document.querySelectorAll('.custom-option'));
     
     // Initialize internationalization
     initializeI18n(); 
@@ -90,7 +131,24 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleBtn.addEventListener('click', toggleFontForce); 
     
     // Bind language selector event 
-    languageSelect.addEventListener('change', changeLanguage); 
+    languageSelectButton.addEventListener('click', toggleLanguageDropdown);
+    languageOptions.forEach(option => {
+        option.addEventListener('click', () => setLanguageOption(option.dataset.value));
+        option.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setLanguageOption(option.dataset.value);
+            }
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        const isInside = event.target.closest('#languageSelectWrapper');
+        if (!isInside) {
+            closeLanguageDropdown();
+        }
+    });
+
     
     // Add keyboard support 
     toggleBtn.addEventListener('keydown', function(e) { 
@@ -174,6 +232,7 @@ function initializeI18n() {
         if (languageSelect) {
             languageSelect.value = savedLanguage;
         }
+        syncLanguageUI(savedLanguage);
         
         // Immediately update the font (no need to wait for translation loading)
         updateFontFamily(savedLanguage);
@@ -196,8 +255,7 @@ function updateFontFamily(language) {
         'zh_TW': 'LXGWWenKaiTC-Regular',
         'ko': 'LXGWWenKaiGB-Regular',
         'ja': 'KleeOne-Regular',
-        'en': 'KleeOne-Regular',
-        'ms': 'KleeOne-Regular'
+        'en': 'KleeOne-Regular'
     };
     
     // Get the font corresponding to the current language

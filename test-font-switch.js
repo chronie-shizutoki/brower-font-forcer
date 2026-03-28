@@ -14,8 +14,7 @@ const fontMap = {
     'zh_TW': 'LXGWWenKaiTC-Regular',
     'ko': 'LXGWWenKaiGB-Regular',
     'ja': 'KleeOne-Regular',
-    'en': 'KleeOne-Regular',
-    'ms': 'KleeOne-Regular'
+    'en': 'KleeOne-Regular'
 };
 
 // Load font function

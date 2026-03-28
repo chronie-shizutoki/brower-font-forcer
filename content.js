@@ -15,7 +15,6 @@
         'ko': 'LXGWWenKaiGB-Regular',    // Korean
         'ja': 'KleeOne-Regular',         // Japanese
         'en': 'KleeOne-Regular',         // English
-        'ms': 'KleeOne-Regular'          // Malay
     };
     
     // Font list
@@ -145,7 +144,7 @@
                 html.font-zh_TW .font-zh_TW {
                     font-family: 'LXGWWenKaiTC-Regular', sans-serif !important;
                 }
-                html.font-ja .font-ja, html.font-en .font-en, html.font-ms .font-ms {
+                html.font-ja .font-ja, html.font-en .font-en {
                     font-family: 'KleeOne-Regular', sans-serif !important;
                 }
                 

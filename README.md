@@ -48,8 +48,6 @@ This is a Chrome browser extension that can force all web pages to use the custo
 │   │   └── messages.json     # Japanese messages
 │   ├── ko                    # Korean localization
 │   │   └── messages.json     # Korean messages
-│   ├── ms                    # Malay localization
-│   │   └── messages.json     # Malay messages
 ├── manifest.json             # Plugin configuration file
 ├── content.css               # Font style file
 ├── content.js                # Content script
